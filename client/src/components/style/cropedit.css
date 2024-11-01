@@ -1,0 +1,560 @@
+/* Header styles */
+.custom-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Close button styles */
+.custom-close-modal {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #ff4444; /* Red color for the close button */
+}
+
+/* Modal header text */
+.custom-modalHeader {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Image container in the modal */
+.custom-modalImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Adjusted Image styles */
+.custom-modalImage {
+  max-width: 35%; /* Adjusted to reduce size */
+  max-height: 25vh; /* Limits height */
+  object-fit: cover; /* Ensures the image doesn't stretch */
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+/* Crop Modal Overlay */
+.crop-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Crop Modal Content */
+.crop-modal-content {
+  background: #ffffff;
+  width: 80%;
+  max-width: 1000px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-modal {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Crop container styles */
+.crop-container {
+  position: relative; /* Allows absolutely positioning of child elements */
+  width: 100%; /* Full width of the parent */
+  height: 60vh; /* Set a specific height for the cropper */
+  overflow: hidden; /* Hides any overflow content */
+  border: 1px solid #ccc; /* Optional border for visibility */
+  border-radius: 8px; /* Optional border radius for a nicer look */
+}
+
+/* Styles for the Cropper */
+.reactEasyCrop_Cropper {
+  width: 100%; /* Full width of the container */
+  height: 100%; /* Full height of the container */
+  display: flex; /* Use flexbox to center the image */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+/* The image style inside the Cropper */
+.reactEasyCrop_Cropper img {
+  width: auto; /* Maintain aspect ratio */
+  height: 100%; /* Full height of the Cropper */
+  max-width: none; /* Allow overflow in width */
+  max-height: none; /* Allow overflow in height */
+}
+
+/* Crop Edit Body */
+.crop-edit-body {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+.tool-panel {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f1f1 100%);
+  border-radius: 12px; /* Slightly reduced border radius */
+  padding: 15px; /* Reduced padding for a more compact look */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  margin-bottom: 20px; /* Reduced margin */
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tool-panel-title {
+  margin-bottom: 10px; /* Reduced margin for title */
+  font-size: 22px; /* Slightly smaller title */
+  font-weight: 600; /* Semi-bold for better readability */
+  color: #333;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.tool-icons {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.tool-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px; /* Reduced padding */
+  margin: 5px; /* Reduced margin */
+  border-radius: 8px; /* Reduced border radius */
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  width: 70px; /* Slightly smaller width */
+}
+
+.tool-icon:hover {
+  background-color: #e0f7fa; /* Light cyan on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.15); /* Softer shadow on hover */
+}
+
+.tool-icon.active {
+  background-color: #007bff; /* Bright blue for active state */
+  color: #ffffff; /* White text for contrast */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle glow effect */
+}
+
+.tool-icon .icon {
+  width: 30px; /* Adjusted icon size for a more compact look */
+  height: 30px;
+  margin-bottom: 3px; /* Reduced space between icon and text */
+  transition: transform 0.2s ease; /* Smooth icon scaling */
+}
+
+.tool-icon:hover .icon {
+  transform: scale(1.1); /* Scale icon on hover */
+}
+
+.tool-label {
+  font-size: 12px; /* Reduced text size */
+  font-weight: 500; /* Medium weight for better readability */
+  color: #333;
+  text-transform: capitalize;
+  transition: color 0.2s ease; /* Smooth color transition */
+}
+
+.tool-icon:hover .tool-label {
+  color: #007bff; /* Change label color on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .tool-icons {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+/* Aspect Ratio Panel */
+.ratio-panel {
+  width: 30%;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ratio-panel h3 {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.ratio-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ratio-button {
+  background: #eaeaea;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ratio-button.active,
+.ratio-button:hover {
+  background: #cce7ff;
+}
+
+.filter-icon {
+  font-size: 24px; /* Adjust size as needed */
+  margin-left: 10px; /* Space between icons */
+  cursor: pointer; /* Pointer on hover */
+}
+
+
+.orientation-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.orientation-title {
+    margin: 0;
+    margin-right: 10px !important;
+    margin-top: 1rem !important;
+    font-size: 1.5rem; /* Adjust the font size as needed */
+    color: #333; /* Set a color for the title */
+}
+
+.orientation-icons {
+    display: flex;
+    align-items: center;
+}
+
+ 
+/* Optional: Hover effect for icons */
+.square-icon:hover {
+    background-color: lightgray; /* Change on hover */
+}
+
+.rectangle-icon:hover {
+    background-color: lightgray; /* Change on hover */
+}
+.orientation-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 80px;
+  padding: 15px; /* Add padding for better spacing */
+  border: 1px solid #e0e0e0; /* Subtle border for the section */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  background-color: #f9f9f9; /* Light background color */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.orientation-title {
+  margin: 0;
+   margin-right: 5px;
+  font-size: 1.5rem; /* Adjust font size */
+  color: #2c3e50; /* Darker color for better contrast */
+  font-weight: bold; /* Bold title for emphasis */
+}
+
+.orientation-icons {
+  display: flex;
+  align-items: center;
+}
+ 
+.rectangle-icon {
+  width: 50px; /* Increased width for better aesthetics */
+  height: 30px;
+   border-radius: 4px; /* Rounded corners */
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+ 
+
+
+/* Footer */
+.modal-footer {
+  display: flex;
+   justify-content: center; /* Center the button */
+  margin-top: 20px;
+ }
+
+.save-button {
+  background-color: #4e8b87;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  width: 50% !important; 
+  cursor: pointer;
+  transition: background 0.7s ease;
+   margin: 0 auto;  
+}
+
+.save-button:hover {
+  background-color: #3a6e6a; /* Optional: darken on hover */
+}
+
+
+.save-button:hover {
+  background-color: #3a6e6a; /* Optional: darken on hover */
+}
+
+
+.save-button:hover {
+  background-color: #039c9c;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+.filter-panel {
+  margin-top: 20px;
+}
+
+.filter-icons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.filter-icon {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  color: #555; /* Default color */
+}
+
+.filter-icon:hover {
+  color: #000; /* Hover color */
+}
+
+.filter-icon span {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+
+/* Styles for Aspect Ratio Buttons */
+.ratio-panel {
+  margin-bottom: 20px; /* Spacing from the next section */
+}
+
+.ratio-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Space between buttons */
+}
+
+.ratio-button {
+  flex: 1 1 80px; /* Flex-grow, shrink, and basis for responsive buttons */
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #f0f0f0; /* Light background for buttons */
+  color: #333; /* Text color */
+  font-weight: bold; /* Bold text */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.ratio-button:hover {
+  background-color: #e0e0e0; /* Darker shade on hover */
+  transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.ratio-button.active {
+  background-color: #3498db; /* Active button background color */
+  color: white; /* Active button text color */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Deeper shadow when active */
+}
+
+/* Orientation Section Styles */
+.orientation-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px; /* Increased spacing */
+}
+
+.orientation-title {
+  margin: 0;
+  font-size: 1.5rem; /* Larger font size for the title */
+  color: #2c3e50; /* Darker color for contrast */
+  font-weight: bold; /* Bold title for emphasis */
+}
+
+.orientation-icons {
+  display: flex;
+  align-items: center;
+}
+
+.square-icon {
+  width: 40px; /* Increased size for better visibility */
+  height: 40px;
+   margin-left: 5px;
+   background-color: rgb(248, 248, 248);
+   border: 1px solid rgb(216, 216, 216);
+
+   box-shadow: none;  margin-right: 10px;
+   transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
+ }
+
+.rectangle-icon {
+  width: 60px; /* Increased width for better aesthetics */
+  height: 40px;
+  border: 1px solid rgb(212, 212, 212);
+  background-color: rgb(248, 248, 248);
+box-shadow: none;
+    border-radius: 0px; /* Rounded corners */
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
+ }
+
+/* Hover effects for icons */
+
+/* Hover Effects */
+.square-icon:hover,
+.rectangle-icon:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+    border-color: rgb(57, 112, 126);
+}
+
+/* Active State */
+.square-icon.active,
+.rectangle-icon.active {
+    border: 1px solid rgb(71, 113, 138);
+    background-color: rgb(230, 245, 255); /* Light blue background */
+    box-shadow: 0 4px 8px rgba(71, 113, 138, 0.2);
+    transform: scale(1.05);
+}
+
+
+
+
+
+
+
+/* SaveNotifyImg.css */
+.save-notify-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it is on top */
+}
+
+.save-notify-content {
+  background-color: #ffffff; /* White background for the notification */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  width: 400px; /* Width of the popup */
+  padding: 20px; /* Padding around content */
+  text-align: center; /* Center text */
+}
+
+.save-notify-header {
+  margin-bottom: 20px; /* Space below header */
+}
+
+.save-notify-body {
+  margin-bottom: 20px; /* Space below body */
+}
+
+.save-notify-footer {
+  display: flex;
+  justify-content: center; /* Center the footer content */
+}
+
+.save-notify-close {
+  background-color: #007bff; /* Blue background for the button */
+  color: white; /* White text */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 20px; /* Padding around button text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.save-notify-close:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+
+
+
+/* Custom Scrollbar Styling for Mobile */
+@media (max-width: 768px) {
+    /* Ensures the modal content can scroll on mobile */
+    .crop-modal-content {
+        overflow-y: auto;
+        max-height: 100vh;
+    }
+
+    /* Scrollbar styling for Webkit browsers (Chrome, Safari, Edge) */
+    .crop-modal-content::-webkit-scrollbar {
+        width: 6px; /* Width of the scrollbar */
+    }
+
+    .crop-modal-content::-webkit-scrollbar-thumb {
+        background-color: #ffffff; /* Scrollbar thumb (scroll line) color */
+        border-radius: 8px;
+    }
+
+    .crop-modal-content::-webkit-scrollbar-track {
+        background: #ffffff; /* Scrollbar track color */
+    }
+
+    /* Scrollbar styling for Firefox */
+    .crop-modal-content {
+        scrollbar-width:auto;
+        scrollbar-color: #d1d1d1 #ffffff; /* Thumb and track color */
+    }
+}

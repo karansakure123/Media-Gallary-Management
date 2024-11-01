@@ -1,0 +1,234 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Start hidden */
+    width: 250px;
+    height: 100%;
+    background-color: #1c0b4b; /* Dark background */
+    color: #eaeaea; /* Light text color */
+    transition: left 0.3s ease-in-out, box-shadow 0.3s ease;
+    padding: 30px 20px;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Soft shadow */
+}
+
+/* Add hover effect for sidebar */
+.sidebar:hover {
+    box-shadow: 0 8px 30px rgba(103, 38, 109, 0.596); /* Darker shadow on hover */
+}
+
+/* Add animation for opening sidebar */
+.sidebar.open {
+    left: 0; /* Slide into view */
+}
+
+/* Shape effects */
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1; /* Lower opacity for background effect */
+    z-index: -1; /* Place behind sidebar content */
+}
+
+/* Example shapes */
+.shape-1 {
+    width: 100px;
+    height: 800px;
+    background-color: rgba(255, 255, 255, 0.2);
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: float 6s ease-in-out infinite;
+}
+
+.shape-2 {
+    width: 150px;
+    height: 650px;
+    background-color: rgba(255, 255, 255, 0.2);
+    top: 70%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Keyframes for floating animation */
+@keyframes float {
+    0% {
+        transform: translate(-50%, -50%) translateY(0);
+    }
+    50% {
+        transform: translate(-50%, -50%) translateY(-10px);
+    }
+    100% {
+        transform: translate(-50%, -50%) translateY(0);
+    }
+}
+
+/* Optional: Add a media query for responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px; /* Adjust width on smaller screens */
+    }
+}
+
+.sidebar.open {
+    left: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Stronger shadow when open */
+}
+
+@media (min-width: 992px) {
+    .sidebar {
+        left: 0; 
+    }
+
+    .toggle-btn {
+        display: none;
+    }
+
+}
+
+
+
+.navbar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+    height: calc(100% - 100px);
+    justify-content: flex-start;
+}
+
+.navbar-user {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, rgba(128, 20, 155, 0.534), rgba(163, 184, 240, 0.3));
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-user:hover {
+    background: rgba(127, 3, 158, 0.445); 
+    transform: scale(1.05);
+}
+
+.navbar-link {
+    padding: 15px 20px;
+    margin-top: 2rem;
+    font-size: 18px; 
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 8px;
+    background-color: #594886; 
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    position: relative; /* For pseudo-elements */
+}
+
+.navbar-link:hover {
+    background-color: #4e4e4e; 
+    transform: translateX(5px);
+}
+
+.navbar-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #6e91b3, #2c3e50); /* Decorative underline */
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.navbar-link:hover::after {
+    transform: scaleX(1);
+}
+
+.navbar-logout {
+    background-color: #b8402b; 
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 18px;
+    margin-top: 21rem;
+    cursor: pointer;
+    text-align: center;
+     transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-logout:hover {
+    background-color: #ff6b81; 
+    transform: scale(1.05);
+}
+
+.toggle-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+     color: #ffffff; 
+    border: none;
+    font-size: 30px; 
+    padding: 12px;
+    cursor: pointer;
+    z-index: 1100;
+    transition: background 0.3s ease, transform 0.3s ease;
+    border-radius: 8px;
+}
+
+.toggle-btn:hover {
+    color: rgb(128, 82, 170);
+     transform: rotate(15deg); 
+}
+
+.upload-label {
+    background-color: #ffffff; 
+    color: #333;
+    padding: 15px 20px;
+    font-size: 16px; 
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.upload-label:hover {
+    background-color: #f0f0f0; 
+    transform: scale(1.02);
+}
+
+.file-input {
+    display: none; 
+}
+
+@media (max-width: 991px) {
+    .toggle-btn {
+        color: #9268a3;
+        left: 0;
+        top: -5px;
+    }
+
+    .navbar-links {
+        margin-top: 5rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .sidebar {
+        width: 220px; 
+    }
+
+    .navbar-link {
+        font-size: 16px; 
+    }
+
+    .navbar-user {
+        font-size: 18px; 
+    }
+}
+@media (max-width: 767px) {
+    .navbar-logout {
+margin-top:auto;
+    }
+}

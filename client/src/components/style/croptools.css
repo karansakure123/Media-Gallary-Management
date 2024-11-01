@@ -1,0 +1,442 @@
+
+/* 
+
+ import React, { useState } from 'react';
+import axios from 'axios';
+import { FaUpload } from 'react-icons/fa';
+import './style/mediagallary.css';
+import CropEditModal from './CropEditModel';
+import FullViewModal from './FullViewModel'; // Import the FullViewModal component
+
+const MediaGallery = ({ isOpen, onClose }) => {
+    const [mediaList, setMediaList] = useState([]);
+    const [uploadedImages, setUploadedImages] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [category, setCategory] = useState('');
+    const [size, setSize] = useState(''); // New state for image size
+    const [format, setFormat] = useState(''); // New state for image format
+    const [color, setColor] = useState(''); // New state for image color
+    const [tag, setTag] = useState(''); // New state for tags
+    const [notification, setNotification] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [imageUpdateLoading, setImageUpdateLoading] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [isEditOpen, setIsEditOpen] = useState(false);
+    const [isFullViewOpen, setIsFullViewOpen] = useState(false); // State for full view modal
+
+    const fetchMedia = async (query, category) => {
+        // Fetch media from an API
+        // ...
+    };
+
+    const handleFileUpload = async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const imgUrl = URL.createObjectURL(file);
+        setUploadedImages((prevImages) => [...prevImages, imgUrl]);
+    };
+
+    const handleSearch = (e) => {
+        const query = e.target.value;
+        setSearchQuery(query);
+        if (query.trim() === '') {
+            setMediaList([]);
+            setNotification('');
+        }
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            fetchMedia(searchQuery, category);
+        } else {
+            setNotification('Please enter a search term');
+            setMediaList([]);
+        }
+    };
+
+    const openEditModal = (image) => {
+        setSelectedImage(image);
+        setIsEditOpen(true);
+    };
+
+    const handleImageClick = (image) => {
+        setSelectedImage(image);
+        setIsFullViewOpen(true); // Open full view modal on left click
+    };
+
+    const handleRightClick = (event, image) => {
+        event.preventDefault(); // Prevent default context menu
+        openEditModal(image); // Open edit modal on right-click
+    };
+
+    const handleSaveEditedImage = async (editedImage) => {
+        setImageUpdateLoading(true);
+
+        // Simulate saving the edited image
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        setUploadedImages((prevImages) => 
+            prevImages.map((img) => (img === selectedImage ? editedImage : img))
+        );
+
+        setIsEditOpen(false);
+        setImageUpdateLoading(false);
+        setNotification('Image updated successfully!');
+    };
+
+    const closeFullView = () => {
+        setIsFullViewOpen(false); // Close full view modal
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="media-modal-overlay">
+            <div className="media-modal">
+                <div className="modal-header">
+                    <h2>Media Gallery</h2>
+                    <button className="close-modal" onClick={onClose}>X</button>
+                </div>
+
+                <div className="row">
+                    <div className="col-lg-2 col-12">
+                        <div className="navbar-upload">
+                            <label htmlFor="file-upload" className="upload-label">
+                                Upload Media <FaUpload />
+                            </label>
+                            <input
+                                type="file"
+                                id="file-upload"
+                                className="file-input"
+                                onChange={handleFileUpload}
+                            />
+                        </div>
+
+                         <select
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            className="category-dropdown"
+                        >
+                            <option value="">Select Category</option>
+                            <option value="category1">Category 1</option>
+                            <option value="category2">Category 2</option>
+                            <option value="category3">Category 3</option>
+                        </select>
+
+                        <select
+                            value={size}
+                            onChange={(e) => setSize(e.target.value)}
+                            className="size-dropdown"
+                        >
+                            <option value="">Select Size</option>
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                        </select>
+
+                        <select
+                            value={format}
+                            onChange={(e) => setFormat(e.target.value)}
+                            className="format-dropdown"
+                        >
+                            <option value="">Select Format</option>
+                            <option value="jpeg">JPEG</option>
+                            <option value="png">PNG</option>
+                            <option value="gif">GIF</option>
+                        </select>
+
+                        <select
+                            value={color}
+                            onChange={(e) => setColor(e.target.value)}
+                            className="color-dropdown"
+                        >
+                            <option value="">Select Color</option>
+                            <option value="red">Red</option>
+                            <option value="green">Green</option>
+                            <option value="blue">Blue</option>
+                        </select>
+                    </div>
+
+                    <div className="col-9">
+                        {notification && <div className="notification">{notification}</div>}
+                        {loading && <div className="loader">Loading...</div>}
+                        {imageUpdateLoading && <div className="loader">Updating...</div>}
+
+                        <form onSubmit={handleSearchSubmit} className="modal-search">
+                            <input
+                                type="text"
+                                className="search-bar"
+                                placeholder="Search media..."
+                                value={searchQuery}
+                                onChange={handleSearch}
+                            />
+                            <button type="submit" className="search-button">Search</button>
+                        </form>
+
+                        <div className="image-gallery">
+                            {uploadedImages.map((image, index) => (
+                                <div key={index} className="image-container">
+                                    <img 
+                                        src={image} 
+                                        alt={`Uploaded ${index}`} 
+                                        onClick={() => handleImageClick(image)} // Left click opens full view
+                                        onContextMenu={(event) => handleRightClick(event, image)} // Right click opens edit modal
+                                        style={{ width: '200px', height: '20vh' , marginTop:'2rem',marginLeft:'1rem' }} // Adjusted image size
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {isEditOpen && (
+                <CropEditModal
+                    imageUrl={selectedImage}
+                    onSave={handleSaveEditedImage}
+                    onClose={() => setIsEditOpen(false)}
+                />
+            )}
+
+            {isFullViewOpen && (
+                <FullViewModal // Full view modal component
+                    imageUrl={selectedImage}
+                    onClose={closeFullView}
+                />
+            )}
+        </div>
+    );
+};
+
+export default MediaGallery; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState } from 'react';
+import axios from 'axios';
+import { FaUpload } from 'react-icons/fa';
+import './style/mediagallary.css';
+import CropEditModal from './CropEditModel';
+import FullViewModal from './FullViewModel';
+import { ThreeDots } from 'react-loader-spinner';
+
+const MediaGallery = ({ isOpen, onClose }) => {
+    const [mediaList, setMediaList] = useState([]);
+    const [uploadedImages, setUploadedImages] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [isEditOpen, setIsEditOpen] = useState(false);
+    const [isFullViewOpen, setIsFullViewOpen] = useState(false);
+    const [notification, setNotification] = useState('');
+    const [imageType, setImageType] = useState('');
+    const [category, setCategory] = useState('');
+    const [orientation, setOrientation] = useState('');
+    const [color, setColor] = useState('');
+
+    const apiKey = 'AIzaSyAYGT7qC4OLQxB323xSdumhqgFOdVTjbCQ';
+    const searchEngineId = '64c19e5972d9240f8';
+    
+    const fetchMedia = async () => {
+        setLoading(true);
+        try {
+            const url = `https://www.googleapis.com/customsearch/v1?q=${searchQuery}&cx=${searchEngineId}&searchType=image&key=${apiKey}`;
+            const response = await axios.get(url);
+            if (response.data.items.length === 0) {
+                setNotification('No images found');
+            } else {
+                setMediaList(response.data.items);
+            }
+        } catch (error) {
+            console.error('Error fetching media:', error);
+            if (error.response) {
+                console.error('Response data:', error.response.data);
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+  
+    const handleSearch = (e) => {
+        const query = e.target.value;
+        setSearchQuery(query);
+        if (query.trim() === '') {
+            setMediaList([]);
+            setNotification('');
+        }
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            fetchMedia();
+        } else {
+            setNotification('Please enter a search term');
+            setMediaList([]);
+        }
+    };
+
+    const handleImageClick = (image) => {
+        setSelectedImage(image);
+        setIsFullViewOpen(true);
+    };
+
+    const closeFullView = () => {
+        setIsFullViewOpen(false);
+    };
+
+    const handleDropdownChange = () => {
+        fetchMedia();
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="media-modal-overlay">
+            <div className="media-modal">
+                <div className="modal-header">
+                    <h2>Media Gallery</h2>
+                    <button className="close-modal" onClick={onClose}>X</button>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-3">
+                        <div className="navbar-upload">
+                            <label htmlFor="file-upload" className="upload-label">
+                                Upload Media <FaUpload />
+                            </label>
+                            <input
+                                type="file"
+                                id="file-upload"
+                                className="file-input"
+                                onChange={(event) => {
+                                    const file = event.target.files[0];
+                                    if (file) {
+                                        const imgUrl = URL.createObjectURL(file);
+                                        setUploadedImages((prev) => [...prev, imgUrl]);
+                                    }
+                                }}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-md-9">
+                        <form onSubmit={handleSearchSubmit} className="modal-search">
+                            <input
+                                type="text"
+                                className="search-bar"
+                                placeholder="Search media..."
+                                value={searchQuery}
+                                onChange={handleSearch}
+                            />
+                            <button type="submit" className="search-button">Search</button>
+                        </form>
+
+                        <div className="row mt-2">
+                            <div className="col-md-3">
+                                <div className="custom-dropdown">
+                                    <select name="imageType" className="form-select custom-select" onChange={(e) => { setImageType(e.target.value); handleDropdownChange(); }}>
+                                        <option value="">All Images</option>
+                                        <option value="photo">Photo</option>
+                                        <option value="clipart">Clipart</option>
+                                        <option value="lineart">Lineart</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="col-md-3">
+                                <div className="custom-dropdown">
+                                    <select name="category" className="form-select custom-select" onChange={(e) => { setCategory(e.target.value); handleDropdownChange(); }}>
+                                        <option value="">All Categories</option>
+                                        <option value="nature">Nature</option>
+                                        <option value="technology">Technology</option>
+                                        <option value="people">People</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="col-md-3">
+                                <div className="custom-dropdown">
+                                    <select name="orientation" className="form-select custom-select" onChange={(e) => { setOrientation(e.target.value); handleDropdownChange(); }}>
+                                        <option value="">All Orientations</option>
+                                        <option value="horizontal">Horizontal</option>
+                                        <option value="vertical">Vertical</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="col-md-3">
+                                <div className="custom-dropdown">
+                                    <select name="color" className="form-select custom-select" onChange={(e) => { setColor(e.target.value); handleDropdownChange(); }}>
+                                        <option value="">All Colors</option>
+                                        <option value="red">Red</option>
+                                        <option value="green">Green</option>
+                                        <option value="blue">Blue</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        {notification && <div className="notification">{notification}</div>}
+                        
+                        {loading && (
+                            <div className="loader-container">
+                                <ThreeDots
+                                    height={80}
+                                    width={80}
+                                    color="#00BFFF"
+                                    ariaLabel="loading"
+                                />
+                            </div>
+                        )}
+
+                        <div className="row mt-3">
+                            {mediaList.length > 0 ? (
+                                mediaList.map((media) => (
+                                    <div className="col-md-4 col-6 gallery-item" key={media.link}>
+                                        <img
+                                            src={media.link}
+                                            alt={media.title || "Image"}
+                                            onClick={() => handleImageClick(media.link)}
+                                            className="img-fluid"
+                                            style={{ width: '200px', height: '20vh', objectFit: 'cover' }}
+                                        />
+                                    </div>
+                                ))
+                            ) : (
+                                <div>No images available</div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {isFullViewOpen && (
+                <FullViewModal 
+                    imageUrl={selectedImage}
+                    onClose={closeFullView}
+                />
+            )}
+        </div>
+    );
+};
+
+export default MediaGallery
+
+
+
+*/
+
+ 

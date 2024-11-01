@@ -1,0 +1,252 @@
+.user-upload-images {
+  margin-top: 2rem;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  background-color: #fafafa !important;
+}
+
+
+
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #bda1a1;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.uploaded-name {
+  margin-top: 10px;
+  font-size: 15px;
+  color: #5d7e88 !important;
+  font-weight: 300;
+  margin-bottom: 1rem !important;
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.tick-icon {
+  width: 16px;
+  height: 16px;
+  fill: green;
+  margin-left: 10px;
+}
+
+.upload-completed {
+  font-weight: 400;
+  color: rgb(158, 153, 153);
+  margin-bottom: 5px;
+}
+
+.gallery-item {
+  margin-bottom: 20px;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.custom-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.custom-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.context-menu {
+  margin-top: -20rem;
+  position: absolute;
+  background-color: rgb(255, 186, 186);
+  border: 1px solid #fcfcfc;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(251, 251, 255, 0.966);
+  z-index: 1000;
+  margin-left: -6rem;
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+}
+
+.context-menu p {
+  color: rgb(41, 36, 36);
+  margin: 5px 6px;
+  font-weight: bold;
+}
+
+.context-menu ul {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.context-menu li {
+  text-align: left;
+  margin: 15px 20px;
+  cursor: pointer;
+  color: rgb(56, 55, 55);
+  font-weight: 400;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.context-menu li:hover {
+  color: rgb(118, 87, 158);
+  transform: scale(1.05);
+}
+
+.full-view-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.full-view-modal {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.full-view-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.close-full-view {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s;
+}
+
+.close-full-view:hover {
+  background-color: #ff1a1a;
+}
+
+
+
+.notification {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  width: 300px;
+  background: linear-gradient(180deg, #fafafa, #f3f3f3); /* Gradient for a modern feel */
+  color: #333; /* Darker text for better readability */
+   box-shadow: 0 8px 30px rgba(185, 185, 185, 0.74); /* Enhanced shadow for depth */
+  padding: 20px; /* Increased padding for better spacing */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect to lift the notification */
+.notification:hover {
+  transform: translateY(-8px); /* Slight upward movement on hover */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+/* Close button styling */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #ff4d4d; /* Bright color for visibility */
+  font-size: 24px; /* Slightly smaller for better proportions */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* Close button hover effect */
+.close-btn:hover {
+  color: #ff1a1a; /* Darker red on hover */
+}
+
+/* Uploaded names styling */
+.uploaded-names {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Styling for each uploaded name */
+.uploaded-names p {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  padding: 5px; /* Padding for better touch target */
+  border-radius: 6px; /* Rounded corners for individual names */
+  transition: background-color 0.3s ease; /* Smooth background change */
+}
+
+/* Hover effect on uploaded names */
+.uploaded-names p:hover {
+  background-color: rgba(200, 200, 255, 0.2); /* Light background on hover */
+}
+
+/* Tick icon styling */
+.tick-icon {
+  width: 16px;
+  height: 16px;
+  fill: green; /* Green color for tick icon */
+  margin-left: 8px; /* Space between name and tick */
+}
+
+/* Completion message styling */
+.upload-completed {
+  font-weight: 500; /* Medium weight for emphasis */
+  color: #555; /* Softer color for the message */
+  margin-bottom: 5px;
+  text-align: center; /* Center align for a balanced look */
+}
+
+
+@media (max-width: 768px) {
+  .gallery-item {
+    width: 100%;
+  }
+
+  .notification {
+    width: 90%;
+  }
+   
+
+.uploaded-name{
+margin: 10px;
+margin-bottom: 10px;
+ }
+ .user-upload-images {
+
+  background-color: white !important;
+ }
+ .context-menu {
+margin-top: -15rem !important;
+  }
+ 
+}
